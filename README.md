@@ -33,6 +33,9 @@ puis recupération depuis le github et execution de l'installation en console de
 cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/gb-0001/tplinuxavril/raw/master/sources/index.html && cd /tmp && wget -O install_srv_web.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_web.sh && /bin/bash install_srv_web.sh
 ```
 
+Vérifier le fonctionnement ouvrir le navigateur: et saisir http://127.0.0.1:8080/
+
+
 **3 - A partir du git clone pour le serveur d'integration avec vagrant ssh faire:**
 ```shell
 cd /tplinuxavril/vagrant/srvintegration
@@ -42,6 +45,9 @@ puis recupération depuis le github et execution de l'installation en console de
 ```shell
 cd /tmp && wget -O install_srv_integration.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_integration.sh && /bin/bash install_srv_integration.sh
 ```
+
+Vérifier le fonctionnement jenkins ouvrir le navigateur: et saisir http://127.0.0.1:8081/
+Vérifier le mot de passe affiché en fin d'installation ex a699fb3219944147a39bbdaa7a80da8f
 
 **4 - A partir du git clone pour le serveur NFS avec vagrant ssh faire:**
 ```shell
