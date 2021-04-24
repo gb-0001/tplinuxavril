@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby sw=2 st=2 et :
+Vagrant.configure('2') do |config|
+ config.vm.box = 'debian/buster64'
+ # config.vm.box = "puppetlabs/debian-7.8-64-puppet"
+ config.vm.box_check_update = false
+
+ #config.vm.network "public_network", ip: "192.168.0.19"
+ config.vm.network :private_network, ip: "192.168.0.19"
+ config.vm.network :forwarded_port, guest: 22, host: 2219, id: 'ssh'
+ config.vm.network :forwarded_port, guest: 8080, host: 8081, id: 'jenkins',host_ip: '127.0.0.1'
+ config.vm.network :forwarded_port, guest: 80, host: 8082, id: 'http',host_ip: '127.0.0.1'
+ # Mettre en place un cache pour APT
+ # config.vm.synced_folder 'v-cache', '/var/cache/apt'
+ config.vm.define 'srvintegration' do |machine|
+ machine.vm.hostname = 'srvintegration'
+ # Limiter la RAM de la VM
+ machine.vm.provider 'virtualbox' do |vb|
+ vb.memory = '3000'
+ # UNCOMMENT FOR MORE DISKS
+ disk2_vdi = 'disk2.vdi'
+ # Creer les fichiers au bon format pour VBox s'ils n'existent pas
+ unless File.exist?(disk2_vdi)
+ vb.customize ['createhd', '--filename', disk2_vdi, '--size', 20 * 1024]
+ end
+ # On attache les fichiers 'disque' sur la VM
+ vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller',
+ '--port', 1, '--device', 0, '--type', 'hdd', '--medium',
+ disk2_vdi]
+ end
+ end
+ # config.vm.provision 'shell', path: 'provision.sh'
+end
