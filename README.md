@@ -20,16 +20,6 @@ cd /tplinuxavril/vagrant/srvweb
 vagrant up
 ```
 
-Exemple:
-**tplinuxavril**
-_____**vagrant**
-__________**srvweb**
-__________srvintegration
-__________srvnfs
-__________pcdev1
-__________pcdev2
-__________pcdev3
-
 
 **Installation pour chaque type de machine:**
 
