@@ -20,8 +20,8 @@ sudo chmod -R 770 $HTMLPATH
 #Demarrage du service apache2 si non demarre
 sudo service apache2 restart
 
-#installation et configuration du firewall
-sudo apt -y install iptables
+#installation et configuration du firewall iptables-persistent sinon les regles ne sont pas positionne au reboot os
+sudo apt -y install iptables iptables-persistent
 #configuration de l'acces ssh
 sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 22 -j ACCEPT
 #configuration de l'acces web
@@ -30,9 +30,9 @@ sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 4
 #DROP de tous les autres flux entrant
 sudo iptables -P INPUT DROP
 #sauvegarde des regles
-sudo -s iptables-save -c
-#application des regles au reboot
-sudo service iptables-persistent
+sudo mkdir -p /etc/iptables/
+sudo /sbin/iptables-save | sudo tee /etc/iptables/rules.v4
+
 
 
 
