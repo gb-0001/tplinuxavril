@@ -20,8 +20,10 @@ sudo chmod -R 770 $HTMLPATH
 #Demarrage du service apache2 si non demarre
 sudo service apache2 restart
 
+#installation et configuration du firewall tmux pour le bypass de la fenetre de dialogue
+sudo apt -y install iptables iptables-persistent tmux
 #installation et configuration du firewall iptables-persistent sinon les regles ne sont pas positionne au reboot os
-sudo apt -y install iptables iptables-persistent
+tmux -L dialog-session new-session -d sudo apt -y install iptables-persistent &&  tmux -L dialog-session send-keys Enter &&  tmux -L dialog-session send-keys Enter
 #configuration de l'acces ssh
 sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 22 -j ACCEPT
 #configuration de l'acces web
