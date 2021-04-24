@@ -22,13 +22,13 @@ vagrant up
 
 Exemple:
 **tplinuxavril**
-	|-----**vagrant**
-			|-----------**srvweb**
-			|-----------srvintegration
-			|-----------srvnfs
-			|-----------pcdev1
-			|-----------pcdev2
-			|-----------pcdev3
+_____**vagrant**
+__________**srvweb**
+__________srvintegration
+__________srvnfs
+__________pcdev1
+__________pcdev2
+__________pcdev3
 
 
 **Installation pour chaque type de machine:**
