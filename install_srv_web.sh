@@ -20,9 +20,10 @@ sudo chmod -R 770 $HTMLPATH
 #Demarrage du service apache2 si non demarre
 sudo service apache2 restart
 
-#installation et configuration du firewall tmux pour le bypass de la fenetre de dialogue
-sudo apt -y install iptables tmux
+#installation et configuration du firewall
+sudo apt -y install iptables
 #installation et configuration du firewall iptables-persistent sinon les regles ne sont pas positionne au reboot os
+#pour le bypass de la fenetre de dialogue iptables-persistent
 sudo debconf-set-selections <<EOF
 iptables-persistent iptables-persistent/autosave_v4 boolean true
 iptables-persistent iptables-persistent/autosave_v6 boolean true
@@ -38,6 +39,7 @@ sudo iptables -P INPUT DROP
 #sauvegarde des regles
 sudo mkdir -p /etc/iptables/
 sudo /sbin/iptables-save | sudo tee /etc/iptables/rules.v4
+
 
 
 
