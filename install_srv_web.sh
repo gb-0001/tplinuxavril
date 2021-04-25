@@ -39,13 +39,20 @@ EOF
 
 #installation et configuration du firewall iptables-persistent sinon les regles ne sont pas positionné au reboot os
 sudo apt -y install iptables-persistent
-#configuration de l'acces ssh
-sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 22 -j ACCEPT
-#configuration de l'acces web
-sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 80 -j ACCEPT
-sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 443 -j ACCEPT
-#DROP de tous les autres flux entrant
+#reglage de la police par defaut
 sudo iptables -P INPUT DROP
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD DROP
+
+# pour autoriser tous les paquets de données entrants ou sortants appartenant à une connexion existante ou s’y référant
+sudo iptables -A INPUT -i eth0 -m state -state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth0 -m state -state RELATED,ESTABLISHED -j ACCEPT
+#configuration de l'acces ssh
+iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
+#configuration de l'acces web
+iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
+
 #sauvegarde des regles
 sudo mkdir -p /etc/iptables/
 sudo /sbin/iptables-save | sudo tee /etc/iptables/rules.v4
