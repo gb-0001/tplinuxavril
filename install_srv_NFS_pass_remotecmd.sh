@@ -33,13 +33,13 @@ DESTINATION_JENKINS_BACKUP=$BACKUPDIR$BACKUP_JENKINS_DIR
 FXAUTOFS_BACKUPCRON () {
     sudo apt -y install autofs
     sudo mkdir $1
-    sudo echo "$1    /etc/auto.nas --timeout 60" >> /etc/auto.master
-    echo "$2  -rw,soft,intr,rsize=8192,wsize=8192 $3:$4" >> /etc/auto.nas
-        sudo chmod 644 /etc/auto.nas
+    sudo sh -c "echo '$1    /etc/auto.nas --timeout 60' >> /etc/auto.master"
+    sudo sh -c "echo '$2  -rw,soft,intr,rsize=8192,wsize=8192 $3:$4' >> /etc/auto.nas"
+    sudo chmod 644 /etc/auto.nas
     sudo service autofs reload
     YEAR=date +%Y && MONTH=date +%m && DAY=date +%d
-    echo "* */1 * * * tar cvzfP $5 $6/$7_$DAY_$MONTH_$YEAR.tar.gz " >> /var/spool/cron/crontabs/vagrant
-    echo "15 4 * * * find $6 -name "*.tar.gz" -type f -mtime +7 -exec rm -f {} +" >> /var/spool/cron/crontabs/vagrant
+    sudo sh -c "echo '* */1 * * * tar cvzfP $5 $6/$7_$DAY_$MONTH_$YEAR.tar.gz ' >> /var/spool/cron/crontabs/vagrant"
+    sudo sh -c "echo '15 4 * * * find $6 -name "*.tar.gz" -type f -mtime +7 -exec rm -f {} +' >> /var/spool/cron/crontabs/vagrant"
 }
 
 #Mise en place du montage automatique avec autofs sur le serveur web et planification de la sauvegarde 1x par Heure et retention sur 7j
