@@ -19,14 +19,16 @@ sudo systemctl enable --now nfs-server.service
 
 #création des dossiers pour l'accès aux points de montage depuis le distant
 sudo mkdir /web
+sudo chown -R vagrant: /web
 sudo mkdir /server_ic
+sudo chown -R vagrant: /server_ic
 
 #configuration du server NFS pour les 2 points de montage
 sudo sh -c "echo '/web  $SRVWEB(rw,all_squash,anonuid=1000,anongid=1000,sync)' >> /etc/exports"
 sudo sh -c "echo '/server_ic  $SRVINTEGRATION(rw,all_squash,anonuid=1000,anongid=1000,sync)' >> /etc/exports"
 
 #prise en compte des modifications nfs
-sudo service nfs-kernel-server reload
+sudo service nfs-kernel-server restart
 
 #generation de la cle ssh
 ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
