@@ -45,13 +45,13 @@ sudo iptables -P OUTPUT ACCEPT
 sudo iptables -P FORWARD DROP
 
 # pour autoriser tous les paquets de données entrants ou sortants appartenant à une connexion existante ou s’y référant
-sudo iptables -A INPUT -i eth0 -m state -state RELATED,ESTABLISHED -j ACCEPT
-sudo iptables -A OUTPUT -o eth0 -m state -state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -m state -state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -m state -state RELATED,ESTABLISHED -j ACCEPT
 #configuration de l'acces ssh
-iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
 #configuration de l'acces web
-iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
+sudo iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
 
 #sauvegarde des regles
 sudo mkdir -p /etc/iptables/
