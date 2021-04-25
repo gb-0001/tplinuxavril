@@ -10,11 +10,13 @@ PASSUSER=vagrant
 
 BACKUPDIR=/backup
 BACKUP_WEB_DIR=/web
+AUTOFSWEB_MOUNTPOINT=web
 BACKUPWEB_FILENAME=serveur_web
 NFSWEB_MOUNTDIR=$BACKUP_WEB_DIR
 SOURCE_WEB_DIR=/var/www/html
 DESTINATION_WEB_BACKUP=$BACKUPDIR$BACKUP_WEB_DIR
 BACKUP_JENKINS_DIR=/server_ic
+AUTOFSJENKINS_MOUNTPOINT=server_ic
 BACKUPJENKINS_FILENAME=serveur_ic
 NFSJENKINS_MOUNTDIR=$BACKUP_JENKINS_DIR
 SOURCE_JENKINS_DIR=/usr/local/jenkins
@@ -29,15 +31,16 @@ DESTINATION_JENKINS_BACKUP=$BACKUPDIR$BACKUP_JENKINS_DIR
 #$5 ==> exemple $SOURCE_WEB_DIR
 #$6 ==> exemple $DESTINATION_WEB_BACKUP
 #$7 ==> exemple $BACKUPWEB_FILENAME
+#$8 ==> exemple $AUTOFSWEB_MOUNTPOINT
 
 FXAUTOFS_BACKUPCRON () {
     sudo apt -y update
-    sudo export DEBIAN_FRONTEND=noninteractive
+    sudo bash -c "export DEBIAN_FRONTEND=noninteractive"
     sudo apt -y install nfs-common autofs
-    sudo mkdir $1 && sudo cd $1 && sudo mkdir $2
+    sudo mkdir $1
     sudo chown -R vagrant: $1
     sudo sh -c "echo '$1    /etc/auto.nas --timeout 60' >> /etc/auto.master"
-    sudo sh -c "echo '$2  -rw,soft,intr,rsize=8192,wsize=8192 $3:$4' >> /etc/auto.nas"
+    sudo sh -c "echo '$8  -fstype=nfs4,rw,soft,intr,rsize=8192,wsize=8192 $3:$4' >> /etc/auto.nas"
     sudo chmod 644 /etc/auto.nas
     sudo service autofs restart
     YEAR=`date +%Y`
@@ -52,12 +55,14 @@ LOCALIP=$(sudo ip a s eth1 | awk -F: '/inet / {print $1}' | awk '{ print $2 }' |
 
 if [[ $LOCALIP = $SRVWEB ]]
 then
+    echo "montage automatique avec autofs sur le serveur web"
     #Mise en place du montage automatique avec autofs sur le serveur web et planification de la sauvegarde 1x par Heure et retention sur 7j
-    FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_WEB_DIR $SRVNFS $NFSWEB_MOUNTDIR $SOURCE_WEB_DIR $DESTINATION_WEB_BACKUP $BACKUPWEB_FILENAME
+    FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_WEB_DIR $SRVNFS $NFSWEB_MOUNTDIR $SOURCE_WEB_DIR $DESTINATION_WEB_BACKUP $BACKUPWEB_FILENAME $AUTOFSWEB_MOUNTPOINT
 elif [[ $LOCALIP = $SRVINTEGRATION ]]
 then
+    echo "montage automatique avec autofs sur le serveur d'integration"
     #Mise en place du montage automatique sur le serveur d'integration et planification de la sauvegarde 1x par Heure et retention sur 7j
-    FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_JENKINS_DIR $SRVNFS $NFSJENKINS_MOUNTDIR $SOURCE_JENKINS_DIR $DESTINATION_JENKINS_BACKUP $BACKUPJENKINS_FILENAME
+    FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_JENKINS_DIR $SRVNFS $NFSJENKINS_MOUNTDIR $SOURCE_JENKINS_DIR $DESTINATION_JENKINS_BACKUP $BACKUPJENKINS_FILENAME $AUTOFSJENKINS_MOUNTPOINT
 else
     echo "Verifier les parametres IP du script"
 fi
