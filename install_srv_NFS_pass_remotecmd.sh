@@ -46,11 +46,10 @@ FXAUTOFS_BACKUPCRON () {
 #Recupere l'ip de la machine afin de vérifier si c'est le bon serveur et pour la bonne fonction parametré
 LOCALIP=$(sudo ip a s eth1 | awk -F: '/inet / {print $1}' | awk '{ print $2 }' | sed 's/\/24//')
 
-if [[ $LOCALIP = $SRVWEB ]]
-then
+if [[ $LOCALIP = $SRVWEB ]] then
     #Mise en place du montage automatique avec autofs sur le serveur web et planification de la sauvegarde 1x par Heure et retention sur 7j
     FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_WEB_DIR $SRVNFS $NFSWEB_MOUNTDIR $SOURCE_WEB_DIR $DESTINATION_WEB_BACKUP $BACKUPWEB_FILENAME
-elif [[ $LOCALIP = $SRVINTEGRATION ]]
+elif [[ $LOCALIP = $SRVINTEGRATION ]] then
     #Mise en place du montage automatique sur le serveur d'integration et planification de la sauvegarde 1x par Heure et retention sur 7j
     FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_JENKINS_DIR $SRVNFS $NFSJENKINS_MOUNTDIR $SOURCE_JENKINS_DIR $DESTINATION_JENKINS_BACKUP $BACKUPJENKINS_FILENAME
 else
