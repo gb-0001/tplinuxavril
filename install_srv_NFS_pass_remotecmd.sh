@@ -43,8 +43,16 @@ FXAUTOFS_BACKUPCRON () {
     sudo sh -c "echo '15 4 * * * find $6 -name "*.tar.gz" -type f -mtime +7 -exec rm -f {} +' >> /var/spool/cron/crontabs/vagrant"
 }
 
-#Mise en place du montage automatique avec autofs sur le serveur web et planification de la sauvegarde 1x par Heure et retention sur 7j
-FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_WEB_DIR $SRVNFS $NFSWEB_MOUNTDIR $SOURCE_WEB_DIR $DESTINATION_WEB_BACKUP $BACKUPWEB_FILENAME
+#Recupere l'ip de la machine afin de vérifier si c'est le bon serveur et pour la bonne fonction parametré
+LOCALIP=$(sudo ip a s eth1 | awk -F: '/inet / {print $1}' | awk '{ print $2 }' | sed 's/\/24//')
 
-#Mise en place du montage automatique sur le serveur d'integration et planification de la sauvegarde 1x par Heure et retention sur 7j
-FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_JENKINS_DIR $SRVNFS $NFSJENKINS_MOUNTDIR $SOURCE_JENKINS_DIR $DESTINATION_JENKINS_BACKUP $BACKUPJENKINS_FILENAME
+if [[ $LOCALIP = $SRVWEB ]]
+then
+    #Mise en place du montage automatique avec autofs sur le serveur web et planification de la sauvegarde 1x par Heure et retention sur 7j
+    FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_WEB_DIR $SRVNFS $NFSWEB_MOUNTDIR $SOURCE_WEB_DIR $DESTINATION_WEB_BACKUP $BACKUPWEB_FILENAME
+elif [[ $LOCALIP = $SRVINTEGRATION ]]
+    #Mise en place du montage automatique sur le serveur d'integration et planification de la sauvegarde 1x par Heure et retention sur 7j
+    FXAUTOFS_BACKUPCRON $BACKUPDIR $BACKUP_JENKINS_DIR $SRVNFS $NFSJENKINS_MOUNTDIR $SOURCE_JENKINS_DIR $DESTINATION_JENKINS_BACKUP $BACKUPJENKINS_FILENAME
+else
+    echo "Verifier les parametres IP du script"
+fi

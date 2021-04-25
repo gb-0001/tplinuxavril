@@ -66,7 +66,6 @@ sudo iptables -A OUTPUT -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
 #configuration de l'acces web
 sudo iptables -t filter -A INPUT -p tcp --dport 8080 -j ACCEPT
-sudo iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
 
 #sauvegarde des regles
 sudo mkdir -p /etc/iptables/

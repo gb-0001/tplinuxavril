@@ -5,6 +5,7 @@ git clone https://github.com/gb-0001/tplinuxavril.git
 
 Dans le dossier vagrant faire un vagrant up pour tous les hosts ci-dessous puis sont à démarrer et suivre l'ordre d'installation ci-dessous:
 
+Faire le vagrant up à partir du git clone dans le sous dossier vagrant/leserveur les ip sont préconfigurés
 *Plan d'adressage IP et ordre de démarrage suivant:*
 1. serveur web 192.168.0.17
 2. serveur integration 192.168.0.19
