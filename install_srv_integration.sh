@@ -54,12 +54,20 @@ EOF
 
 #installation et configuration du firewall iptables-persistent sinon les regles ne sont pas positionne au reboot os
 sudo apt -y install iptables-persistent
-#configuration de l'acces ssh
-sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 22 -j ACCEPT
-#configuration de l'acces web et en 8080 pour jenkins
-sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -p tcp --dport 8080 -j ACCEPT
-#DROP de tous les autres flux entrant
+#reglage de la police par defaut
 sudo iptables -P INPUT DROP
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD DROP
+
+# pour autoriser tous les paquets de données entrants ou sortants appartenant à une connexion existante ou s’y référant
+sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
+#configuration de l'acces ssh
+sudo iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
+#configuration de l'acces web
+sudo iptables -t filter -A INPUT -p tcp --dport 8080 -j ACCEPT
+sudo iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
+
 #sauvegarde des regles
 sudo mkdir -p /etc/iptables/
 sudo /sbin/iptables-save | sudo tee /etc/iptables/rules.v4
