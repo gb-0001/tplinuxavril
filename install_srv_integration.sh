@@ -68,5 +68,8 @@ sudo /sbin/iptables-save | sudo tee /etc/iptables/rules.v4
 sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 sudo service sshd restart
 
+#Temporisation le temps que le mot de passe soit généré
+echo "Génération de la clé dans 1min:"
+sleep 1m
 #Affiche le password
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
