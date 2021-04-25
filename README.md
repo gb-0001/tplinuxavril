@@ -33,7 +33,7 @@ puis recupération depuis le github et execution de l'installation en console de
 cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/gb-0001/tplinuxavril/raw/master/sources/index.html && cd /tmp && wget -O install_srv_web.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_web.sh && /bin/bash install_srv_web.sh
 ```
 
-Vérifier le fonctionnement ouvrir le navigateur: et saisir http://127.0.0.1:8080/
+Vérifier le fonctionnement ouvrir le navigateur et saisir http://127.0.0.1:8080/
 
 
 **3 - A partir du git clone pour le serveur d'integration avec vagrant ssh faire:**
@@ -56,7 +56,7 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
-cd /tmp && wget -O install_srv_NFS.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS.sh && /bin/bash install_srv_NFS.sh
+cd /tmp && wget -O install_srv_NFS_pass_remotecmd.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS_pass_remotecmd.sh && wget -O install_srv_NFS.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS.sh && /bin/bash install_srv_NFS.sh
 ```
 
 **5 - A partir du git clone pour chacune des machines de DEV avec vagrant ssh et faire pour chacune l'install ci-dessous:**

@@ -22,8 +22,8 @@ sudo mkdir /web
 sudo mkdir /server_ic
 
 #configuration du server NFS pour les 2 points de montage
-sudo echo "/web  $SRVWEB(rw,all_squash,anonuid=1000,anongid=1000,sync)" >> /etc/exports
-sudo echo "/server_ic  $SRVINTEGRATION(rw,all_squash,anonuid=1000,anongid=1000,sync)" >> /etc/exports
+sudo sh -c "echo '/web  $SRVWEB(rw,all_squash,anonuid=1000,anongid=1000,sync)' >> /etc/exports"
+sudo sh -c "echo '/server_ic  $SRVINTEGRATION(rw,all_squash,anonuid=1000,anongid=1000,sync)' >> /etc/exports"
 
 #prise en compte des modifications nfs
 sudo service nfs-kernel-server reload
