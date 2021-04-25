@@ -36,11 +36,11 @@ DESTINATION_JENKINS_BACKUP=$BACKUPDIR$BACKUP_JENKINS_DIR
 FXAUTOFS_BACKUPCRON () {
     sudo apt -y update
     sudo bash -c "export DEBIAN_FRONTEND=noninteractive"
-    sudo apt -y install nfs-common autofs
+    sudo -E apt -y install nfs-common autofs
     sudo mkdir $1
     sudo chown -R vagrant: $1
     sudo sh -c "echo '$1    /etc/auto.nas --timeout 60' >> /etc/auto.master"
-    sudo sh -c "echo '$8  -fstype=nfs4,rw,soft,intr,rsize=8192,wsize=8192 $3:$4' >> /etc/auto.nas"
+    sudo sh -c "echo '$8  -fstype=nfs4,rw,soft,intr $3:$4' >> /etc/auto.nas"
     sudo chmod 644 /etc/auto.nas
     sudo service autofs restart
     YEAR=`date +%Y`
