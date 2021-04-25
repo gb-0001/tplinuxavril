@@ -37,7 +37,7 @@ FXAUTOFS_BACKUPCRON () {
     sudo sh -c "echo '$1    /etc/auto.nas --timeout 60' >> /etc/auto.master"
     sudo sh -c "echo '$2  -rw,soft,intr,rsize=8192,wsize=8192 $3:$4' >> /etc/auto.nas"
     sudo chmod 644 /etc/auto.nas
-    sudo service autofs reload
+    sudo service autofs restart
     YEAR=`date +%Y`
     MONTH=`date +%m`
     DAY=`date +%d`
