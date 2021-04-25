@@ -45,8 +45,8 @@ sudo iptables -P OUTPUT ACCEPT
 sudo iptables -P FORWARD DROP
 
 # pour autoriser tous les paquets de données entrants ou sortants appartenant à une connexion existante ou s’y référant
-sudo iptables -A INPUT -i eth1 -m state -state RELATED,ESTABLISHED -j ACCEPT
-sudo iptables -A OUTPUT -i eth1 -m state -state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 #configuration de l'acces ssh
 sudo iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
 #configuration de l'acces web
