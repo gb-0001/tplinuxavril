@@ -31,6 +31,7 @@ DESTINATION_JENKINS_BACKUP=$BACKUPDIR$BACKUP_JENKINS_DIR
 #$7 ==> exemple $BACKUPWEB_FILENAME
 
 FXAUTOFS_BACKUPCRON () {
+    sudo apt -y update
     sudo apt -y install autofs
     sudo mkdir $1
     sudo sh -c "echo '$1    /etc/auto.nas --timeout 60' >> /etc/auto.master"
