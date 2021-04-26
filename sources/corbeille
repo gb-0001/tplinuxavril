@@ -17,9 +17,9 @@ if [[ $# = 0 ]]; then
     echo ""
     echo "HELP:"
     echo ""
-    echo "- Faire /bin/bash corbeille.sh RM FILENAME pour déplacer les fichiers dans $PATHCORBEILLE"
-    echo "- Faire corbeille.sh TRASH FILENAME pour lister le contenu des fichiers dans $PATHCORBEILLE"
-    echo "- Faire corbeille.sh RESTORE FILENAME pour restaurer depuis $PATHCORBEILLE un fichier de la corbeille vers son emplacement original"
+    echo "- Faire corbeille RM FILENAME pour déplacer les fichiers dans $PATHCORBEILLE"
+    echo "- Faire corbeille TRASH FILENAME pour lister le contenu des fichiers dans $PATHCORBEILLE"
+    echo "- Faire corbeille RESTORE FILENAME pour restaurer depuis $PATHCORBEILLE un fichier de la corbeille vers son emplacement original"
     exit 0
 #Test des arguments
 elif [[ $1 = "RM" ]] || [[ $1 = "TRASH" ]] || [[ $1 = "RESTORE" ]]; then
