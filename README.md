@@ -156,19 +156,22 @@ Test de connexion ssh sans mot de passe vers le serveur integration le prompt do
 ssh 192.168.0.18
 Faire exit pour revenir sur le pcdev1
 
-Test de fonctionnement corbeille.sh et vérification du package corbeille.deb :
+
 Vérification si le package est installé un ii doit etre présent en début de ligne:
 dpkg -l | grep corbeille
 Retour atendu:
 ii  corbeille                      1.0.0                        all          simuler les fonctionnements d\'une corbeille
+
+Test de fonctionnement corbeille.sh et vérification du package corbeille.deb :
 cd ~/
 touch test1.txt test2.txt
 Verifie la liste des fichiers dans la corbeille doit etre vide
 /bin/bash corbeille.sh TRASH
 /bin/bash corbeille.sh RM test1.txt
+
 Verifie la liste des fichiers dans la corbeille doit avoir test1.txt et repérer le numero de ligne pour la restauration
 /bin/bash corbeille.sh TRASH
-et le fichier a été déplacer de ~/test1.txt ver ~/corbeille/test1.txt
+et le fichier a été déplacé de ~/test1.txt ver ~/corbeille/test1.txt
 ls -l ~/
 ls -l ~/corbeille
 Restauration du fichier dans ~/
