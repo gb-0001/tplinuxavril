@@ -5,6 +5,8 @@ git clone https://github.com/gb-0001/tplinuxavril.git
 
 Dans le dossier vagrant faire un vagrant up pour tous les hosts ci-dessous puis sont à démarrer et suivre l'ordre d'installation ci-dessous:
 
+L'utilisateur utilisé est vagrant et sont password vagrant.
+
 *Plan d'adressage IP préconfiguré dans les vagrantfile du git clone et ordre d'installation suivant:*
 1. serveur web 192.168.0.17
 2. serveur integration 192.168.0.19
@@ -113,4 +115,42 @@ vagrant ssh
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
 cd /tmp && wget -O install_dev.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_dev.sh && /bin/bash install_dev.sh
+```
+
+TEST DE FONCTIONNEMENT:
+Puis vérification sur le fonctionnemnt des outils à partir du pcdev1 faire:
+```shell
+Doit retourner les versions:
+python --version
+pip --version
+git --version
+code --version
+vagrant --version
+
+Test de connexion ssh sans mot de passe vers le serveur integration le prompt doit retourner son nom srvintegration:
+ssh 192.168.0.18
+Faire exit pour revenir sur le pcdev1
+
+Test de fonctionnement corbeille.sh et vérification du package corbeille.deb :
+Vérification si le package est installé un i doit etre présent en début de ligne:
+dpkg -l | grep corbeille
+cd ~/
+touch test1.txt test2.txt
+Verifie la liste des fichiers dans la corbeille doit etre vide
+/bin/bash corbeille.sh TRASH
+/bin/bash corbeille.sh RM test1.txt
+Verifie la liste des fichiers dans la corbeille doit avoir test1.txt et repérer le numero de ligne pour la restauration
+/bin/bash corbeille.sh TRASH
+et le fichier a été déplacer de ~/test1.txt ver ~/corbeille/test1.txt
+ls -l ~/
+ls -l ~/corbeille
+Restauration du fichier dans ~/
+/bin/bash corbeille.sh RESTORE
+ls -l ~/
+ls -l ~/corbeille
+
+Test du vagrant
+cd ~/exemple-python/vagrant
+python main.py
+
 ```
