@@ -123,16 +123,18 @@ Puis vérification sur le fonctionnemnt des outils à partir du pcdev1 faire:
 Les commandes suivantes après \"vagrant@dev01:~/example-python$\" doivent retourner les versions:
 vagrant@dev01:~/example-python$ python --version
 Python 2.7.16
-vagrant@dev01:~/example-python$ pip --version
--bash: pip: command not found
+
 vagrant@dev01:~/example-python$ pip3 --version
 pip 18.1 from /usr/lib/python3/dist-packages/pip (python 3.7)
+
 vagrant@dev01:~/example-python$ git --version
 git version 2.20.1
+
 vagrant@dev01:~/example-python$ code --version
 1.55.2
 3c4e3df9e89829dce27b7b5c24508306b151f30d
 x64
+
 vagrant@dev01:~/example-python$ vagrant --version
 Vagrant 2.2.15
 
