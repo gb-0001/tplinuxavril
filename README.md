@@ -149,7 +149,7 @@ Restauration du fichier dans ~/
 ls -l ~/
 ls -l ~/corbeille
 
-Test du vagrant up (NE fonctionnera pas nécessite une configuration windows particulière lié au vt-x et le nested):
+Test du vagrant up (NE fonctionnera pas nécessite une configuration windows 10 soft et hardware particulière lié au vt-x et le nested + hyperv + config dans le vagrantfile sous windows du nested-hw-virt = on cf erreur VT-x ci-dessous):
 cd ~/exemple-python
 vagrant up
 vagrant ssh
@@ -157,13 +157,7 @@ Faire:
 python main.py
 
 
-```shell
-Si l'erreur suivante apparait au démarrage de la vm problème de configation sur la machine windows 10 problème de vt-x de conflit avec hyper-v ou l'absence de vt-c dans le bios à enabled et option à mettre dans le vagrantfile de la windows 10 vb.customize ['modifyvm', :id, '--nested-hw-virt', 'on'] :
-L'erreur apparait meme en activant vt-x dans le processur de la vm
-
-Stderr: VBoxManage: error: Cannot enable nested VT-x/AMD-V without nested-paging and unresricted guest execution
+ERREUR VT-X:
+Stderr: VBoxManage: error: Cannot enable nested VT-x/AMD-V without nested-paging and unresricted guest execution!
 ```
 
-
-
-```
