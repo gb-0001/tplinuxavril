@@ -41,6 +41,6 @@ sudo apt -y install sshpass
 /usr/bin/sshpass -p $PASSUSER ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $LOGINUSER@$SRVINTEGRATION
 /usr/bin/sshpass -p $PASSUSER ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $LOGINUSER@$SRVWEB
 
-#Mise en place du montage automatique avec autofs sur le serveur et planification de la sauvegarde 1x par Heure et retention sur 7j
+#Mise en place du montage automatique avec autofs sur le serveur web et d'integration et planification de la sauvegarde 1x par Heure et retention sur 7j
 ssh $LOGINUSER@$SRVWEB 'bash -s' < install_srv_NFS_pass_remotecmd.sh
 ssh $LOGINUSER@$SRVINTEGRATION 'bash -s' < install_srv_NFS_pass_remotecmd.sh

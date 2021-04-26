@@ -5,8 +5,7 @@ git clone https://github.com/gb-0001/tplinuxavril.git
 
 Dans le dossier vagrant faire un vagrant up pour tous les hosts ci-dessous puis sont à démarrer et suivre l'ordre d'installation ci-dessous:
 
-Faire le vagrant up à partir du git clone dans le sous dossier vagrant/leserveur les ip sont préconfigurés
-*Plan d'adressage IP et ordre de démarrage suivant:*
+*Plan d'adressage IP préconfiguré dans les vagrantfile du git clone et ordre d'installation suivant:*
 1. serveur web 192.168.0.17
 2. serveur integration 192.168.0.19
 3. serveur NFS 192.168.0.18
@@ -14,19 +13,25 @@ Faire le vagrant up à partir du git clone dans le sous dossier vagrant/leserveu
 5. pc dev 2 192.168.0.21
 6. pc dev 3 192.168.0.22
 
-Se connecter sur les machines avec vagrant ssh en se positionnant sur le dossier de l'arborescence du git clone exemple tplinuxavril/vagrant/*SERVEUR* respectif où se situ le vagrantfile des hosts.
+*Prérequis:*
+- Avoir installé git bash et vagrant
 
+
+Exemple se connecter sur les machines *SERVEUR* remplacer par srvweb, srvintegration, srvnfs...:
+- Dans l'explorateur se positionner dans le chemin du git clone au niveau tplinuxavril/vagrant/*SERVEUR*
+- faire clic droit git bash here ou se situ le vagrantfile exemple tplinuxavril/vagrant/*SERVEUR*/vagrantfile
+- une fois le git bash ouvert faire sur les 6 hosts ci-dessus:
 ```shell
-cd /tplinuxavril/vagrant/srvweb
 vagrant up
 ```
+
 
 
 **Installation pour chaque type de machine:**
 
 **2 - A partir du git clone pour le serveur web avec vagrant ssh faire:**
 ```shell
-cd /tplinuxavril/vagrant/srvweb
+Dans le git bash du /tplinuxavril/vagrant/srvweb préalablement ouvert faire:
 vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
@@ -34,25 +39,26 @@ puis recupération depuis le github et execution de l'installation en console de
 cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/gb-0001/tplinuxavril/raw/master/sources/index.html && cd /tmp && wget -O install_srv_web.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_web.sh && /bin/bash install_srv_web.sh
 ```
 
-Vérifier le fonctionnement ouvrir le navigateur et saisir http://127.0.0.1:8080/
+TEST DE FONCTIONNEMENT:
+- Vérifier le fonctionnement ouvrir le navigateur et saisir http://127.0.0.1:8080/ vérifier si la page du site apparait.
 
 
 **3 - A partir du git clone pour le serveur d'integration avec vagrant ssh faire:**
 ```shell
-cd /tplinuxavril/vagrant/srvintegration
+Dans le git bash du /tplinuxavril/vagrant/srvintegration préalablement ouvert faire:
 vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
 cd /tmp && wget -O install_srv_integration.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_integration.sh && /bin/bash install_srv_integration.sh
 ```
-
-Vérifier le fonctionnement jenkins ouvrir le navigateur: et saisir http://127.0.0.1:8081/
-Vérifier le mot de passe affiché en fin d'installation ex a699fb3219944147a39bbdaa7a80da8f
+TEST DE FONCTIONNEMENT:
+- Vérifier le fonctionnement jenkins ouvrir le navigateur: et saisir http://127.0.0.1:8081/
+- Vérifier le mot de passe sur l'url qui est affiché en fin d'installation exemple a699fb3219944147a39bbdaa7a80da8f ce mot passe peut etre saisi pour vérifier le fonctionnement
 
 **4 - A partir du git clone pour le serveur NFS avec vagrant ssh faire:**
 ```shell
-cd /tplinuxavril/vagrant/srvnfs
+Dans le git bash du /tplinuxavril/vagrant/srvnfs préalablement ouvert faire:
 vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
@@ -60,9 +66,48 @@ puis recupération depuis le github et execution de l'installation en console de
 cd /tmp && wget -O install_srv_NFS_pass_remotecmd.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS_pass_remotecmd.sh && wget -O install_srv_NFS.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS.sh && /bin/bash install_srv_NFS.sh
 ```
 
+TEST DE FONCTIONNEMENT:
+Dans le git bash, vagrant ssh du serveur web préalablement ouvert.
+Vérifier si les 2 lignes sont présentes dans la crontab faire:
+```shell
+crontab -l
+Lignes attendus:
+* */1 * * * tar cvzfP /var/www/html /backup/web/serveur_web_2021.tar.gz
+15 4 * * * find /backup/web -name *.tar.gz -type f -mtime +7 -exec rm -f {} +
+```
+
+Puis vérification sur le fonctionnemnt de l'acces au partage à partir du serveur web faire:
+```shell
+touch /backup/web/test.txt
+```
+
+Se connecter avec git bash vagrant ssh sur le serveur nfs et vérifier si le fichier créé est présent dans /web
+```shell
+ls -l /web
+```
+
+Dans le git bash, vagrant ssh du serveur d'intégration préalablement ouvert.
+Vérification si les 2 lignes sont présentes dans la crontab faire:
+```shell
+crontab -l
+Lignes attendus:
+* */1 * * * tar cvzfP /usr/local/jenkins /backup/server_ic/serveur_ic_2021.tar.gz
+15 4 * * * find /backup/server_ic -name *.tar.gz -type f -mtime +7 -exec rm -f {} +
+```
+Puis vérification sur le fonctionnemnt de l'acces au partage à partir du serveur d'integration faire:
+```shell
+touch /backup/server_ic/test.txt
+```
+
+Se connecter avec vagrant ssh sur le serveur nfs et vérifier dans /server_ic
+```shell
+ls -l /server_ic
+```
+
+
 **5 - A partir du git clone pour chacune des machines de DEV avec vagrant ssh et faire pour chacune l'install ci-dessous:**
 ```shell
-cd /tplinuxavril/vagrant/pcdev(1)
+Dans le git bash du  /tplinuxavril/vagrant/pcdev(1/2/3)  préalablement ouvert faire:
 vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:

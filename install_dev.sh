@@ -34,4 +34,7 @@ cd /tmp && sudo apt -y install ./vagrant_2.2.15_x86_64.deb
 #clone du git
 cd ~ && git clone https://github.com/vanessakovalsky/example-python.git
 
+#install du package corbeille.deb
+sudo dpkg -i /tmp/corbeille.deb
+sudo rm -f /tmp/corbeille.deb
 
