@@ -42,6 +42,20 @@ cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/
 ```
 
 TEST DE FONCTIONNEMENT:
+```shell
+Dans le git bash du /tplinuxavril/vagrant/srvweb préalablement ouvert faire:
+vagrant ssh
+Vérification si le package est installé un ii doit etre présent en début de ligne:
+dpkg -l | grep apache2
+Retour atendu:
+ii  apache2                       2.4.38-3+deb10u4             amd64        Apache HTTP Server
+
+Vérifier les droits:
+sudo ls -l /var/www/html
+Attendu pour les droits et www-data pour le groupe:
+-rwxrwx--- 1 www-data root 657 Apr 25 15:40 index.html
+
+```
 - Vérifier le fonctionnement ouvrir le navigateur et saisir http://127.0.0.1:8080/ vérifier si la page du site apparait.
 
 
@@ -145,6 +159,8 @@ Faire exit pour revenir sur le pcdev1
 Test de fonctionnement corbeille.sh et vérification du package corbeille.deb :
 Vérification si le package est installé un ii doit etre présent en début de ligne:
 dpkg -l | grep corbeille
+Retour atendu:
+ii  corbeille                      1.0.0                        all          simuler les fonctionnements d\'une corbeille
 cd ~/
 touch test1.txt test2.txt
 Verifie la liste des fichiers dans la corbeille doit etre vide
