@@ -34,11 +34,9 @@ wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key a
 #ajout des repos virtualbox
 echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 #install virtualbox + extension pack
-sudo apt update
-sudo apt install linux-headers-$(uname -r) dkms
-sudo apt-get install virtualbox-6.1
-cd ~/
-wget https://download.virtualbox.org/virtualbox/6.1.6/Oracle_VM_VirtualBox_Extension_Pack-6.1.6.vbox-extpack
+sudo apt -y update
+sudo apt -y install linux-headers-$(uname -r) dkms
+sudo apt -y install virtualbox-6.1
 
 #install vagrant
 cd /tmp && curl -O https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_x86_64.deb
