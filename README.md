@@ -114,7 +114,7 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
-cd /tmp && wget -O corbeille.deb https://github.com/gb-0001/tplinuxavril/raw/master/sources/corbeille.deb && wget -O install_dev.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_dev.sh && /bin/bash install_dev.sh
+cd /tmp && wget -O corbeille_1.0.0.deb https://github.com/gb-0001/tplinuxavril/raw/master/sources/corbeille_1.0.0.deb && wget -O install_dev.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_dev.sh && /bin/bash install_dev.sh
 ```
 
 TEST DE FONCTIONNEMENT:
