@@ -167,6 +167,7 @@ vagrant ssh
 Faire:
 python main.py
 
+Message attendu avec Bien joué
 
 ERREUR VT-X:
 Stderr: VBoxManage: error: Cannot enable nested VT-x/AMD-V without nested-paging and unresricted guest execution!
