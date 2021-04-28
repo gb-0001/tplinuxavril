@@ -128,7 +128,7 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
-cd /tmp && wget -O corbeille_1.0.0.deb https://github.com/gb-0001/tplinuxavril/raw/master/sources/corbeille_1.0.0.deb && wget -O install_dev.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_dev.sh && /bin/bash install_dev.sh
+cd /tmp && wget -O corbeille_1.0.0.deb https://github.com/gb-0001/tplinuxavril/raw/master/sources/corbeille_1.0.0.deb && wget -O varenv.sh https://github.com/gb-0001/tplinuxavril/raw/master/sources/varenv.sh && wget -O install_dev.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_dev.sh && /bin/bash install_dev.sh
 ```
 
 TEST DE FONCTIONNEMENT:
@@ -179,7 +179,7 @@ Restauration du fichier dans ~/
 ls -l ~/
 ls -l ~/corbeille
 
-Test du vagrant up (NE fonctionnera pas nécessite une configuration windows 10 soft et hardware particulière lié au vt-x et le nested + hyperv + config dans le vagrantfile sous windows du nested-hw-virt = on cf erreur VT-x ci-dessous):
+Test du vagrant up :
 cd ~/exemple-python
 vagrant up
 vagrant ssh
@@ -188,7 +188,4 @@ python main.py
 
 Message attendu avec Bien joué
 
-ERREUR VT-X:
-Stderr: VBoxManage: error: Cannot enable nested VT-x/AMD-V without nested-paging and unresricted guest execution!
 ```
-

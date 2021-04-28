@@ -27,16 +27,20 @@ ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
 sudo apt -y install sshpass
 /usr/bin/sshpass -p $PASSUSER ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $LOGINUSER@$SRVINTEGRATION
 
-#install virtualbox
-#ajout des clés repo
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-#ajout des repos virtualbox
-echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-#install virtualbox + extension pack
-sudo apt -y update
-sudo apt -y install linux-headers-$(uname -r) dkms
-sudo apt -y install virtualbox-6.1
+#install KVM
+sudo apt -y install qemu libvirt-daemon-system libvirt-clients libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev ruby-libvirt ebtables dnsmasq-base
+#activation du service au demarrage
+sudo systemctl enable libvirtd
+#Demmarrage du service kvm
+sudo systemctl start libvirtd
+#authorise vagrant a utiliser libvirt avec son groupe
+sudo usermod -a -G libvirt vagrant
+
+#adaptation du vagrantfile fournit pour libvirt
+cd ~/example-python
+sudo sed -i 's/bento\/ubuntu-20\.10/generic\/ubuntu2010/g' ~/example-python/Vagrantfile
+#creation de la variable d'environnement pour le provider par default
+source /tmp/.varenv.sh
 
 #install vagrant
 cd /tmp && curl -O https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_x86_64.deb
