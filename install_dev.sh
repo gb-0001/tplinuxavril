@@ -44,7 +44,7 @@ sudo usermod -a -G libvirt vagrant
 cd ~/example-python
 sudo sed -i 's/  config.vm.box = "bento\/ubuntu-20\.10"/  config.vm.box = "generic\/ubuntu2010"/g' ~/example-python/Vagrantfile
 #creation de la variable d'environnement pour le provider par default
-cd /tmp && source /bin/bash varenv.sh
+cd /tmp && source ./varenv.sh
 
 #install vagrant
 cd /tmp && curl -O https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_x86_64.deb
