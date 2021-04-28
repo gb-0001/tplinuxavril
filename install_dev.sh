@@ -49,7 +49,10 @@ cd ~ && git clone https://github.com/vanessakovalsky/example-python.git
 
 #adaptation du vagrantfile fournit pour libvirt
 cd ~/example-python
-sudo sed -i 's/  config.vm.box = "bento\/ubuntu-20\.10"/  config.vm.box = "generic\/ubuntu2010"/g' ~/example-python/Vagrantfile
+sed -i -e 's/^\(VAGRANTFILE\).*$/& \n$script = <<-\x27SCRIPT\x27\d10vagrant plugin install vagrant-libvirt\d10vagrant plugin install vagrant-mutate\d10SCRIPT"/' ~/example-python/Vagrantfile
+sed -i 's/  config.vm.box = "bento\/ubuntu-20\.10"/  config.vm.box = "generic\/ubuntu2010"/g' ~/example-python/Vagrantfile
+sed -i -e 's/^\(  config.*install.sh\).*$/& \n  config.vm.provision "shell", inline: $script/' ~/example-python/Vagrantfile
+
 
 #install du package corbeille.deb
 sudo dpkg -i /tmp/corbeille_1.0.0.deb
