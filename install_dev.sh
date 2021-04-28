@@ -45,10 +45,9 @@ cd /tmp && curl -O https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_
 cd /tmp && sudo apt -y install ./vagrant_2.2.15_x86_64.deb
 
 #clone du git
-cd ~ && git clone https://github.com/vanessakovalsky/example-python.git
+cd ~/ && git clone https://github.com/vanessakovalsky/example-python.git
 
 #adaptation du vagrantfile fournit pour libvirt
-cd ~/example-python
 sed -i 's/  config.vm.box = "bento\/ubuntu-20\.10"/  config.vm.box = "generic\/ubuntu2010"/g' ~/example-python/Vagrantfile
 
 #install du package corbeille.deb

@@ -181,6 +181,7 @@ ls -l ~/corbeille
 
 Test du vagrant up :
 cd ~/exemple-python
+vagrant plugin install vagrant-mutate && vagrant plugin install vagrant-mutate
 vagrant up --provider=libvirt
 vagrant ssh
 Faire:
