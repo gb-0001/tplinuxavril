@@ -181,7 +181,7 @@ ls -l ~/corbeille
 
 Test du vagrant up :
 cd ~/exemple-python
-vagrant up
+vagrant up --provider=libvirt
 vagrant ssh
 Faire:
 python main.py

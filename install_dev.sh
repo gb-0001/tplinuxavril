@@ -40,12 +40,6 @@ sudo systemctl start libvirtd
 #authorise vagrant a utiliser libvirt avec son groupe
 sudo usermod -a -G libvirt vagrant
 
-#adaptation du vagrantfile fournit pour libvirt
-cd ~/example-python
-sudo sed -i 's/  config.vm.box = "bento\/ubuntu-20\.10"/  config.vm.box = "generic\/ubuntu2010"/g' ~/example-python/Vagrantfile
-#creation de la variable d'environnement pour le provider par default
-cd /tmp && source ./varenv.sh
-
 #install vagrant
 cd /tmp && curl -O https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_x86_64.deb
 cd /tmp && sudo apt -y install ./vagrant_2.2.15_x86_64.deb
@@ -53,7 +47,10 @@ cd /tmp && sudo apt -y install ./vagrant_2.2.15_x86_64.deb
 #clone du git
 cd ~ && git clone https://github.com/vanessakovalsky/example-python.git
 
+#adaptation du vagrantfile fournit pour libvirt
+cd ~/example-python
+sudo sed -i 's/  config.vm.box = "bento\/ubuntu-20\.10"/  config.vm.box = "generic\/ubuntu2010"/g' ~/example-python/Vagrantfile
+
 #install du package corbeille.deb
 sudo dpkg -i /tmp/corbeille_1.0.0.deb
 sudo rm -f /tmp/corbeille_1.0.0.deb
-
