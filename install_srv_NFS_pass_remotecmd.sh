@@ -36,18 +36,28 @@ DESTINATION_JENKINS_BACKUP=$BACKUPDIR$BACKUP_JENKINS_DIR
 FXAUTOFS_BACKUPCRON () {
     sudo apt -y update
     DEBIAN_FRONTEND=noninteractive
-    sudo DEBIAN_FRONTEND="$DEBIAN_FRONTEND" apt -y install nfs-common autofs
-    sudo mkdir $1
-    sudo chown -R vagrant: $1
-    sudo sh -c "echo '$1    /etc/auto.nas --ghost,--timeout 60' >> /etc/auto.master"
-    sudo sh -c "echo '$8  -fstype=nfs4,rw,soft,intr $3:$4' >> /etc/auto.nas"
-    sudo chmod 644 /etc/auto.nas
-    sudo service autofs restart
-    YEAR=`date +%Y`
-    MONTH=`date +%m`
-    DAY=`date +%d`
-    sudo sh -c "echo '* */1 * * * tar cvzfP $5 $6/$7_$DAY_$MONTH_$YEAR.tar.gz ' >> /var/spool/cron/crontabs/vagrant"
-    sudo sh -c "echo '15 4 * * * find $6 -name "*.tar.gz" -type f -mtime +7 -exec rm -f {} +' >> /var/spool/cron/crontabs/vagrant"
+    RETOURAUTOFS=dpkg -l | grep autofs
+    #Test si existe déjà pour les 3 conditions cas de reinstallation
+    if [ $? = 1 ]; then
+        sudo DEBIAN_FRONTEND="$DEBIAN_FRONTEND" apt -y install nfs-common autofs
+        sudo sh -c "echo '$1    /etc/auto.nas --ghost,--timeout 60' >> /etc/auto.master"
+        sudo sh -c "echo '$8  -fstype=nfs4,rw,soft,intr $3:$4' >> /etc/auto.nas"
+        sudo chmod 644 /etc/auto.nas
+        sudo service autofs restart
+    then
+
+    if [ ! -d "$1" ]; then
+        sudo mkdir $1
+        sudo chown -R vagrant: $1
+    fi
+    RETOURCRON=crontab -l | grep "tar cvzfP"
+    if [ $? = 1 ]; then
+        YEAR=`date +%Y`
+        MONTH=`date +%m`
+        DAY=`date +%d`
+        sudo sh -c "echo '* */1 * * * tar cvzfP $5 $6/$7_$DAY_$MONTH_$YEAR.tar.gz ' >> /var/spool/cron/crontabs/vagrant"
+        sudo sh -c "echo '15 4 * * * find $6 -name "*.tar.gz" -type f -mtime +7 -exec rm -f {} +' >> /var/spool/cron/crontabs/vagrant"
+    fi
 }
 
 #Recupere l'ip de la machine afin de vérifier si c'est le bon serveur et pour la bonne fonction parametré
