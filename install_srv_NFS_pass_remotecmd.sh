@@ -44,7 +44,7 @@ FXAUTOFS_BACKUPCRON () {
         sudo sh -c "echo '$8  -fstype=nfs4,rw,soft,intr $3:$4' >> /etc/auto.nas"
         sudo chmod 644 /etc/auto.nas
         sudo service autofs restart
-    then
+    fi
 
     if [ ! -d "$1" ]; then
         sudo mkdir $1
