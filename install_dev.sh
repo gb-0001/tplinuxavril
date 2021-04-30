@@ -3,7 +3,7 @@
 
 dpkg -l | grep corbeille
 if [ $? = 0 ]; then
-    echo "Serveur web déjà installé"
+    echo "Machine de Dev déjà installé"
     exit 0
 fi
 
