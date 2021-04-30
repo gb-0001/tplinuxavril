@@ -1,6 +1,9 @@
 #!/bin/bash
 #script d'installation du serveur NFS
 
+#recuperation des sources nécessaires pour l'install
+cd /tmp && wget -O install_srv_NFS_pass_remotecmd.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS_pass_remotecmd.sh
+
 #Parametre
 SRVINTEGRATION=192.168.0.19
 SRVWEB=192.168.0.17
