@@ -1,6 +1,9 @@
 #!/bin/bash
 #script d'installation du serveur web
 
+#recuperation des sources nécessaires pour l'install
+cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/gb-0001/tplinuxavril/raw/master/sources/index.html
+
 #MAJ de la liste des packages et installation du serveur web
 sudo apt -y update
 sudo apt -y install apache2
@@ -14,7 +17,7 @@ HTMLPATH=/var/www/html
 GROUPEWEB=www-data
 
 #fichier web source à positionner en cible
-INDEXPATH=sources
+INDEXPATH=/tmp/sources
 sudo cp $INDEXPATH/index.html $HTMLPATH/index.html
 
 #Positionnement du groupe en recursif pour $HTMLPATH et des droits lecture/ecriture proprietaire + groupe

@@ -1,28 +1,31 @@
 **1 - Faire un git clone**
 ```shell
+Créer un dossier et se positionner avec git bash dedans puis:
 git clone https://github.com/gb-0001/tplinuxavril.git
+puis se positionner dans tplinuxavril/vagrant/*MAVM* à remplacer avec le bon nom ci-dessous pour faire le vagrant up:
+
 ```
+
+*Prérequis:*
+- Avoir installé git bash et vagrant
+- ne pas avoir de vm vagrant avec les mêmes ports en forward virtualbox sinon changer celle de virtualbox
 
 Dans le dossier vagrant faire un vagrant up pour tous les hosts ci-dessous puis sont à démarrer et suivre l'ordre d'installation ci-dessous:
 
 L'utilisateur utilisé est vagrant et sont password vagrant.
 
 *Plan d'adressage IP préconfiguré dans les vagrantfile du git clone et ordre d'installation suivant:*
-1. serveur web 192.168.0.17
-2. serveur integration 192.168.0.19
-3. serveur NFS 192.168.0.18
-4. pc dev 1 192.168.0.20
-5. pc dev 2 192.168.0.21
-6. pc dev 3 192.168.0.22
-
-*Prérequis:*
-- Avoir installé git bash et vagrant
+1. serveur web 192.168.0.17             ==> remplacer *MAVM* par: srvweb
+2. serveur integration 192.168.0.19     ==> remplacer *MAVM* par: srvintegration
+3. serveur NFS 192.168.0.18             ==> remplacer *MAVM* par: srvnfs
+4. pc dev 1 192.168.0.20                ==> remplacer *MAVM* par: pcdev1
+5. pc dev 2 192.168.0.21                ==> remplacer *MAVM* par: pcdev2
+6. pc dev 3 192.168.0.22                ==> remplacer *MAVM* par: pcdev3
 
 
-Exemple se connecter sur les machines *SERVEUR* remplacer par srvweb, srvintegration, srvnfs...:
-- Dans l'explorateur se positionner dans le chemin du git clone au niveau tplinuxavril/vagrant/*SERVEUR*
-- faire clic droit git bash here ou se situ le vagrantfile exemple tplinuxavril/vagrant/*SERVEUR*/vagrantfile
-- une fois le git bash ouvert faire sur les 6 hosts ci-dessus:
+- Une fois positionner dans le chemin du git clone au niveau tplinuxavril/vagrant/*MAVM*, ADAPTER LE CHEMIN POUR CHAQUE VM.
+- faire clic droit git bash here ou se situ le vagrantfile exemple tplinuxavril/vagrant/*MAVM*/vagrantfile
+- git bash ouvert, faire sur les 6 hosts ci-dessus:
 ```shell
 vagrant up
 ```
@@ -38,7 +41,8 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
-cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/gb-0001/tplinuxavril/raw/master/sources/index.html && cd /tmp && wget -O install_srv_web.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_web.sh && /bin/bash install_srv_web.sh
+Executer la ligne de commande suivante une fois connecté en vagrant ssh:
+cd /tmp && wget -O install_srv_web.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_web.sh && /bin/bash install_srv_web.sh
 ```
 
 TEST DE FONCTIONNEMENT:
@@ -66,6 +70,7 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
+Executer la ligne de commande suivante une fois connecté en vagrant ssh:
 cd /tmp && wget -O install_srv_integration.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_integration.sh && /bin/bash install_srv_integration.sh
 ```
 TEST DE FONCTIONNEMENT:
@@ -79,7 +84,8 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
-cd /tmp && wget -O install_srv_NFS_pass_remotecmd.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS_pass_remotecmd.sh && wget -O install_srv_NFS.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS.sh && /bin/bash install_srv_NFS.sh
+Executer la ligne de commande suivante une fois connecté en vagrant ssh:
+cd /tmp && wget -O install_srv_NFS.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS.sh && /bin/bash install_srv_NFS.sh
 ```
 
 TEST DE FONCTIONNEMENT:
@@ -128,6 +134,7 @@ vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
 ```shell
+Executer la ligne de commande suivante une fois connecté en vagrant ssh:
 cd /tmp && wget -O install_dev.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_dev.sh && /bin/bash install_dev.sh
 ```
 
@@ -180,8 +187,8 @@ ls -l ~/
 ls -l ~/corbeille
 
 Test du vagrant up :
-cd ~/exemple-python
-vagrant plugin install vagrant-mutate && vagrant plugin install vagrant-mutate
+cd ~/example-python
+vagrant plugin install vagrant-libvirt && vagrant plugin install vagrant-mutate
 vagrant up --provider=libvirt
 vagrant ssh
 Faire:
