@@ -7,7 +7,7 @@ Vagrant.configure('2') do |config|
 
  config.vm.network "public_network", ip: "192.168.0.17"
  #config.vm.network :forwarded_port, guest: 22, host: 2217, id: 'ssh'
- config.vm.network :forwarded_port, guest: 80, host: 8090, id: 'http',host_ip: '127.0.0.1'
+ config.vm.network :forwarded_port, guest: 80, host: 8080, id: 'http',host_ip: '127.0.0.1'
  # Mettre en place un cache pour APT
  # config.vm.synced_folder 'v-cache', '/var/cache/apt'
  config.vm.define 'srvweb' do |machine|

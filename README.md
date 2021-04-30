@@ -8,7 +8,7 @@ puis se positionner dans tplinuxavril/vagrant/*MAVM* à remplacer avec le bon no
 
 *Prérequis:*
 - Avoir installé git bash et vagrant
-- ne pas avoir de vm vagrant avec les mêmes ports en forward virtualbox sinon changer celle de virtualbox
+- Ne pas avoir de vm vagrant déjà installé avec les mêmes ports en forward(8080,8081,8082) virtualbox sinon changer celle des vm virtualbox des autres vm déjà présente le temps de la vérification.
 
 Dans le dossier vagrant faire un vagrant up pour tous les hosts ci-dessous puis sont à démarrer et suivre l'ordre d'installation ci-dessous:
 
@@ -60,12 +60,12 @@ Attendu pour les droits et www-data pour le groupe:
 -rwxrwx--- 1 www-data root 657 Apr 25 15:40 index.html
 
 ```
-- Vérifier le fonctionnement ouvrir le navigateur et saisir http://127.0.0.1:8090/ vérifier si la page du site apparait.
+- Vérifier le fonctionnement ouvrir le navigateur et saisir http://127.0.0.1:8080/ vérifier si la page du site apparait.
 
 
 **3 - A partir du git clone pour le serveur d'integration avec vagrant ssh faire:**
 ```shell
-Dans le git bash du /tplinuxavril/vagrant/srvintegration préalablement ouvert faire:
+Dans le git bash du /tplinuxavril/vagrant/srvintegration préalablement ouvert faire pour vérifier la connexion:
 vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
@@ -74,7 +74,7 @@ Executer la ligne de commande suivante une fois connecté en vagrant ssh:
 cd /tmp && wget -O install_srv_integration.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_integration.sh && /bin/bash install_srv_integration.sh
 ```
 TEST DE FONCTIONNEMENT:
-- Vérifier le fonctionnement jenkins ouvrir le navigateur: et saisir http://127.0.0.1:8091/
+- Vérifier le fonctionnement jenkins ouvrir le navigateur: et saisir http://127.0.0.1:8081/
 - Vérifier le mot de passe sur l'url qui est affiché en fin d'installation exemple a699fb3219944147a39bbdaa7a80da8f ce mot passe peut etre saisi pour vérifier le fonctionnement
 
 **4 - A partir du git clone pour le serveur NFS avec vagrant ssh faire:**
