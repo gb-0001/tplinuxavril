@@ -50,8 +50,8 @@ FXAUTOFS_BACKUPCRON () {
         sudo mkdir $1
         sudo chown -R vagrant: $1
     fi
-    sudo cat /var/spool/cron/crontabs/vagrant | grep "tar cvzfP"
-    if [ $? = 1 ]; then
+
+    if [ ! -f /var/spool/cron/crontabs/vagrant ]; then
         YEAR=`date +%Y`
         MONTH=`date +%m`
         DAY=`date +%d`
