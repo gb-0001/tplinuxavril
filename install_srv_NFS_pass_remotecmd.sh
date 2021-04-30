@@ -36,7 +36,7 @@ DESTINATION_JENKINS_BACKUP=$BACKUPDIR$BACKUP_JENKINS_DIR
 FXAUTOFS_BACKUPCRON () {
     sudo apt -y update
     DEBIAN_FRONTEND=noninteractive
-    RETOURAUTOFS=dpkg -l | grep autofs
+    dpkg -l | grep autofs
     #Test si existe déjà pour les 3 conditions cas de reinstallation
     if [ $? = 1 ]; then
         sudo DEBIAN_FRONTEND="$DEBIAN_FRONTEND" apt -y install nfs-common autofs
@@ -50,7 +50,7 @@ FXAUTOFS_BACKUPCRON () {
         sudo mkdir $1
         sudo chown -R vagrant: $1
     fi
-    RETOURCRON=crontab -l | grep "tar cvzfP"
+    sudo cat /var/spool/cron/crontabs/vagrant | grep "tar cvzfP"
     if [ $? = 1 ]; then
         YEAR=`date +%Y`
         MONTH=`date +%m`
