@@ -8,7 +8,7 @@ puis se positionner dans tplinuxavril/vagrant/*MAVM* à remplacer avec le bon no
 
 *Prérequis:*
 - Avoir installé git bash et vagrant
-- Ne pas avoir de vm vagrant déjà installé avec les mêmes ports en forward(8080,8081,8082) virtualbox sinon changer celle des vm virtualbox des autres vm déjà présente le temps de la vérification.
+- Ne pas avoir de vm vagrant démarré utilisant les mêmes ports en forward(8080,8081,8082) virtualbox sinon éteindre les vm virtualbox déjà présente le temps de la vérification.
 
 Dans le dossier vagrant faire un vagrant up pour tous les hosts ci-dessous puis sont à démarrer et suivre l'ordre d'installation ci-dessous:
 
@@ -65,7 +65,7 @@ Attendu pour les droits et www-data pour le groupe:
 
 **3 - A partir du git clone pour le serveur d'integration avec vagrant ssh faire:**
 ```shell
-Dans le git bash du /tplinuxavril/vagrant/srvintegration préalablement ouvert faire pour vérifier la connexion:
+Dans le git bash du /tplinuxavril/vagrant/srvintegration préalablement ouvert faire:
 vagrant ssh
 ```
 puis recupération depuis le github et execution de l'installation en console de la vm vagrant:
@@ -186,7 +186,7 @@ Restauration du fichier dans ~/
 ls -l ~/
 ls -l ~/corbeille
 
-Test du vagrant up :
+Test du vagrant up \'NE PAS FAIRE\' :
 cd ~/example-python
 vagrant plugin install vagrant-libvirt && vagrant plugin install vagrant-mutate
 vagrant up --provider=libvirt
