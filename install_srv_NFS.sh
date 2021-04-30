@@ -1,6 +1,12 @@
 #!/bin/bash
 #script d'installation du serveur NFS
 
+dpkg -l | grep nfs-kernel-server
+if [ $? = 0 ]; then
+    echo "Serveur nfs déjà installé"
+    exit 0
+fi
+
 #recuperation des sources nécessaires pour l'install
 cd /tmp && wget -O install_srv_NFS_pass_remotecmd.sh https://github.com/gb-0001/tplinuxavril/raw/master/install_srv_NFS_pass_remotecmd.sh
 

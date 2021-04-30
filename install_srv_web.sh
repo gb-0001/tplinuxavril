@@ -1,6 +1,12 @@
 #!/bin/bash
 #script d'installation du serveur web
 
+dpkg -l | grep apache2
+if [ $? = 0 ]; then
+    echo "Serveur web déjà installé"
+    exit 0
+fi
+
 #recuperation des sources nécessaires pour l'install
 cd /tmp && mkdir sources && cd sources && wget -O index.html https://github.com/gb-0001/tplinuxavril/raw/master/sources/index.html
 

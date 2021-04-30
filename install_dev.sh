@@ -1,6 +1,12 @@
 #!/bin/bash
 #script d'installation d'un poste developpeur
 
+dpkg -l | grep corbeille
+if [ $? = 0 ]; then
+    echo "Serveur web déjà installé"
+    exit 0
+fi
+
 #recuperation des sources nécessaires pour l'install
 cd /tmp && wget -O corbeille_1.0.0.deb https://github.com/gb-0001/tplinuxavril/raw/master/sources/corbeille_1.0.0.deb
 cd /tmp && wget -O varenv.sh https://github.com/gb-0001/tplinuxavril/raw/master/sources/varenv.sh

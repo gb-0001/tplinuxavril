@@ -1,6 +1,12 @@
 #!/bin/bash
 #script d'installation du serveur d'integration
 
+dpkg -l | grep jenkins
+if [ $? = 0 ]; then
+    echo "Serveur intégration déjà installé"
+    exit 0
+fi
+
 #creation de la partition sdb en ext4
 (echo n
 echo p
